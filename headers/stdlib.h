@@ -16,10 +16,10 @@ static int srand(int x) {
 	__ri = x;
 }
 
-static const size_t align = _Alignof(void*);
+static const size_t _align = _Alignof(void*);
 
 static void* malloc(size_t _) {
-	size_t n = (_&~(align-1))+align;
+	size_t n = (_&~(_align-1))+_align;
 	void* ptr = sbrk(n);
 	return ptr==(void*)-1?0:ptr;
 }
