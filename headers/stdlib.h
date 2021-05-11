@@ -19,8 +19,7 @@ static int srand(int x) {
 static const size_t _align = _Alignof(void*);
 
 static void* malloc(size_t _) {
-	size_t n = (_&~(_align-1))+_align;
-	void* ptr = sbrk(n);
+	void* ptr = sbrk((_&~(_align-1))+_align);
 	return ptr==(void*)-1?0:ptr;
 }
 
