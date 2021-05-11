@@ -10,3 +10,4 @@ golfed libc targeting gcc
 - legit implimentations only
 	* for example, no bruteforcing math functions
 		- decided by jurry in the c&cpp discord server #lobby
+- requres x64 linux
