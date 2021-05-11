@@ -9,4 +9,4 @@ golfed libc targeting gcc
 - no asm() or __asm{} (basically no inline assembly)
 - legit implimentations only
 	* for example, no bruteforcing math functions
-		- decided by jurry in the c&cpp discordserver #lobby
+		- decided by jurry in the c&cpp discord server #lobby
