@@ -8,3 +8,4 @@ rules (subject to change):
 	requires ieee doubles
 	requires 80 bit long doubles
 	no asm() or __asm{} (basically no inline assembly)
+	legit implimentations only
