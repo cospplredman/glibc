@@ -2,6 +2,7 @@
 #define STDLIB_H
 
 #include "stddef.h"
+#include <unistd.h>
 
 #define RAND_MAX 32767
 
@@ -15,9 +16,28 @@ static int srand(int x) {
 	__ri = x;
 }
 
-void* free(void*);
-void* malloc(size_t);
-void* calloc(size_t, size_t);
-void* realloc(void*, size_t);
+static const size_t align = _Alignof(void*);
+
+static void* malloc(size_t _) {
+	size_t n = (_&~(align-1))+align;
+	void* ptr = sbrk(n);
+	return ptr==(void*)-1?0:ptr;
+}
+
+static void* free(void* ptr) {}
+
+static void* calloc(size_t n, size_t s) {
+	void* ptr = malloc(n * s);
+	memset(ptr, 0, n * s);
+	return ptr;
+}
+
+static void* realloc(void* ptr, size_t n) {
+	void* new = malloc(n);
+	if(!new) return new;
+	memcpy(new, ptr, n);
+	free(ptr);
+	return new;
+}
 
 #endif
