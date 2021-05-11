@@ -3,11 +3,14 @@
 
 #define RAND_MAX 32767
 
+static int __ri = 1;
+
 static int rand() {
-	static int i;
-	return i++ % RAND_MAX;
+	return __ri = ((__ri * __ri ^ __ri) + __ri) % RAND_MAX;
 }
 
-static int srand() {}
+static int srand(int x) {
+	__ri = x;
+}
 
 #endif
