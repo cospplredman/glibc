@@ -43,6 +43,6 @@ float remainderf(float a,float b){return a-roundf(a/b)*b;}
 double remainder(double a,double b){return a-round(a/b)*b;}
 long double remainderl(long double a,long double b){return a-roundl(a/b)*b;}
 
-float nanf(){return 0;}
-double nan(){return 0;}
-long double nanl(){return 0;}
+float nanf(char*){return 0;}
+double nan(char*){return 0;}
+long double nanl(char*){return 0;}
