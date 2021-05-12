@@ -61,7 +61,7 @@ float nanf(char*){return 0;}
 double nan(char*){return 0;}
 long double nanl(char*){return 0;}
 
-#define sqrt(r) (r f){r g=0,o=f;do(g+=o)*g>f&&(g-=o);while(g+(o/=2)!=g);return g;}
+#define sqrt(r) (r f){r g=0,o=f;do(g+=o)*g>f&&(g-=o);while(g+(o/=2)!=g);return f<0?NAN:g;}
 float sqrtf sqrt(float)
 double sqrt sqrt(double)
 long double sqrtl sqrt(long double)
