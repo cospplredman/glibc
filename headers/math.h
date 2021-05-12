@@ -28,6 +28,19 @@
 #define islessgreater(a,b)((a)<(b)||(a)>(b))
 #define isunordered(a,b)(isnan(a)||isnan(b))
 
+typdef double float_t;
+typdef double double_t;
+
+struct div_t{int quot;int rem;};
+struct ldiv_t{long quot;long rem;};
+struct lldiv_t{long long quot;long long rem;};
+// todo: struct imaxdiv_t { int quot; int rem; };
+
+div_t div(int a,int b){return{a/b,a%b};}
+ldiv_t div(long a,long b){return{a/b,a%b};}
+lldiv_t div(long long a,long long b){return{a/b,a%b};}
+// todo: imaxdiv_t imaxdiv()
+
 //todo imaxabs
 long labs(long a){return a<0?-a:a;}
 abs(a){return a<0?-a:a;}
@@ -37,6 +50,11 @@ long long llabs(long long a){return a<0?-a:a;}
 float fabsf(float a){return a<0?-a:a;}
 double fabs(double a){return a<0?-a:a;}
 long double fabsl(long double a){return a<0?-a:a;}
+
+float fdimf(float a,float b){return absf(a-b);}
+double fdim(double a,double b){return abs(a-b);}
+long double fdiml(long double a,long double b){return absl(a-b);}
+#define fdim(a,b)Q(a+b,(a+b),fdiml,fdim)
 
 float roundf(float k){float r=0x1p-149;return k==0.5?1:r*k/r;}
 double round(double k){double r=0x1p-1074;return k==0.5?1:r*k/r;}
@@ -72,6 +90,11 @@ float remainderf(float a,float b){return a-roundf(a/b)*b;}
 double remainder(double a,double b){return a-round(a/b)*b;}
 long double remainderl(long double a,long double b){return a-roundl(a/b)*b;}
 #define remainder(a,b)Q(a+b,(a,b),remainderl,remainder)
+
+float remquof(float a,float b,int *c){union{int a,float b}k={.b=a/b};return *c=k.a&7,remainder(a,b)}
+double remquo(double a,double b,int *c){union{int a[2],float b}k={.b=a/b};return *c=k.a[0]&7,remainder(a,b)}
+long double remquol(long double a,long double b,int *c){union{int a[4],float b}k={.b=a/b};return *c=k.a[0]&7,remainder(a,b)}
+#define remquo(a,b,c)Q(a+b,(a,b,c),remquol,remquo)
 
 float nanf(char*){return 0;}
 double nan(char*){return 0;}
