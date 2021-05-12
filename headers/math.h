@@ -54,12 +54,12 @@ long long llroundl(long double a){return llround(a);}
 float fmodf(float a,float b){return a-b*floorf(a/b);}
 double fmod(double a,double b){return a-b*floor(a/b);}
 long double fmodl(long double a,long double b){return a-b*floorl(a/b);}
-#define fmod(a,b)Q(a,(a,b),fmodl,fmod,fmodf)
+#define fmod(a,b)Q(a+b,(a,b),fmodl,fmod,fmodf)
 
 float remainderf(float a,float b){return a-roundf(a/b)*b;}
 double remainder(double a,double b){return a-round(a/b)*b;}
 long double remainderl(long double a,long double b){return a-roundl(a/b)*b;}
-#define remainder(a,b)Q(a,(a,b),remainderl,remainder,remainderf)
+#define remainder(a,b)Q(a+b,(a,b),remainderl,remainder,remainderf)
 
 float nanf(char*){return 0;}
 double nan(char*){return 0;}
@@ -75,7 +75,7 @@ long double sqrtl sqrt(long double)
 float hypotf(float a,float b){return sqrtf(a*a+b*b);}
 double hypot(double a,double b){return sqrt(a*a+b*b);}
 long double hypotl(long double a,long double b){return sqrtl(a*a+b*b);}
-#define hypot(a,b)Q(a,(a,b),hypotl,hypot,hypotf)
+#define hypot(a,b)Q(a+b,(a,b),hypotl,hypot,hypotf)
 
 #define cbrt(r) (r f){r g=0,o=f;do(g+=o)*g*g>f&&(g-=o);while(g+(o/=2)!=g);return f<0?NAN:g;}
 float cbrtf cbrt(float)
@@ -97,4 +97,4 @@ long double log2l(float j){int a;long double k=0,f=1;for(int i=65;i;i--)j=frexpl
 float fmaf(float a,float b,float c){return a*b+c;}
 double fma(double a,double b,double c){return a*b+c;}
 long double fmal(long double a,long double b,long double c){return a*b+c;}
-#define fma(a,b,c)Q(a,(a,b,c),fmal,fma,fmaf)
+#define fma(a,b,c)Q(a+b+c,(a,b,c),fmal,fma,fmaf)
