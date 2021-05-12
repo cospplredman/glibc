@@ -78,3 +78,8 @@ double cbrt cbrt(double)
 long double cbrtl cbrt(long double)
 #undef cbrt
 //todo #define cbrt
+
+float frexpf(float a,int*e){union{float f;int i;}k={.f=a};*e=((k.i>>23)&255)-127;return k.i&=0x807fffff,k.f;}
+double frexp(double a,int*e){union{double f;int i[2];}k={.f=a};*e=((k.i[1]>>21)&2047)-1023;return k.i[1]&=0x800fffff,k.f;};
+long double frexpl(long double a,int*e){union{long double f;int i[4];}k={.f=a};*e=(k.i[2]&0x00007fff)-16383;return k.i[3]=0,k.i[2]=0,k.f;};
+//todo #define frexp
