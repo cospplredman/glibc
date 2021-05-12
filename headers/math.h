@@ -1,10 +1,9 @@
-#define NAN (float)((1/0)*0)
-#define INFINITY (float)(1/0)
+#define NAN (0x1p128f*0)
+#define INFINITY 0x1p128f
 
-#define HUGE_VALF (float)(1/0)
-#define HUGE_VAL (double)(1/0)
-#define HUGE_VALL (long double)(1/0)
-
+#define HUGE_VALF 0x1p128f
+#define HUGE_VAL 0x1p128f
+#define HUGE_VALL 0x1p128f
 #define FP_NORMAL 0
 #define FP_SUBNORMAL 1
 #define FP_ZERO 2
