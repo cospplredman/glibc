@@ -67,3 +67,7 @@ double sqrt sqrt(double)
 long double sqrtl sqrt(long double)
 #undef sqrt
 //todo #define sqrt
+
+float hypotf(float a,float b){return sqrtf(a*a+b*b);}
+double hypot(double a,double b){return sqrt(a*a+b*b);}
+long double hypotl(long double a,long double b){return sqrtl(a*a+b*b);}
