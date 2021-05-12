@@ -77,3 +77,4 @@ float cbrtf cbrt(float)
 double cbrt cbrt(double)
 long double cbrtl cbrt(long double)
 #undef cbrt
+//todo #define cbrt
