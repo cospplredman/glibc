@@ -79,7 +79,13 @@ long double cbrtl cbrt(long double)
 #undef cbrt
 //todo #define cbrt
 
-float frexpf(float a,int*e){union{float f;int i;}k={.f=a};*e=((k.i>>23)&255)-127;return k.i&=0x807fffff,k.f;}
-double frexp(double a,int*e){union{double f;int i[2];}k={.f=a};*e=((k.i[1]>>21)&2047)-1023;return k.i[1]&=0x800fffff,k.f;};
-long double frexpl(long double a,int*e){union{long double f;int i[4];}k={.f=a};*e=(k.i[2]&0x00007fff)-16383;return k.i[3]=0,k.i[2]=0,k.f;};
+float frexpf(float a,int* e){union{float f;int i;}k={.f=a};*e=((k.i>>23)&255)-127;return k.i&=0x807fffff,k.i|=0x3f800000, k.f;}
+double frexp(double a,int* e){union{double f;int i[2];}k={.f=a};*e=((k.i[1]>>20)&2047)-1023;return k.i[1]&=0x800fffff,k.i[1]|=(1023<<20),k.f;}
+long double frexpl(long double a,int* e){union{long double f;int i[4];}k={.f=a};*e=(k.i[2]&0x7fff)-16383;return k.i[3]=0,k.i[2]&=0x8000,k.i[2]|=16383,k.f;}
 //todo #define frexp
+
+float log2f(float j){int a;float k=0,f=1;for(int i=24;i;i--)j=frexpf(j,&a),k+=a*f,f*=0.5,j*=j;return k;}
+double log2(float j){int a;double k=0,f=1;for(int i=53;i;i--)j=frexp(j,&a),k+=a*f,f*=0.5,j*=j;return k;}
+long double log2l(float j){int a;long double k=0,f=1;for(int i=65;i;i--)j=frexpl(j,&a),k+=a*f,f*=0.5,j*=j;return k;}
+//todo #define log2
+
