@@ -1,3 +1,4 @@
+//todo imaxabs
 long labs(long a){return a<0?-a:a;}
 abs(a){return a<0?-a:a;}
 long long llabs(long long a){return a<0?-a:a;}
@@ -31,3 +32,17 @@ long lroundl(float a){return lround(a);}
 long long llroundf(float a){return llround(a);}
 long long llround(double a){return llround(a);}
 long long llroundl(long double a){return llround(a);}
+
+//todo #define fmod
+float fmodf(float a,float b){return a-b*floorf(a/b);}
+double fmod(double a,double b){return a-b*floor(a/b);}
+long double fmodl(long double a,long double b){return a-b*floorl(a/b);}
+
+//todo #define remainder
+float remainderf(float a,float b){return a-roundf(a/b)*b;}
+double remainder(double a,double b){return a-round(a/b)*b;}
+long double remainderl(long double a,long double b){return a-roundl(a/b)*b;}
+
+float nanf(){return 0;}
+double nan(){return 0;}
+long double nanl(){return 0;}
