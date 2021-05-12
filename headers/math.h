@@ -1,3 +1,17 @@
+#define NAN (float)((1/0)*0)
+#define INFINITY (float)(1/0)
+
+#define HUGE_VALF (float)(1/0)
+#define HUGE_VAL (double)(1/0)
+#define HUGE_VALL (long double)(1/0)
+
+#define FP_NORMAL 0
+#define FP_SUBNORMAL 1
+#define FP_ZERO 2
+#define FP_INFINITE 3
+#define FP_NAN 4
+//todo #define fpclassify(a) a==0?2:
+
 //todo imaxabs
 long labs(long a){return a<0?-a:a;}
 abs(a){return a<0?-a:a;}
