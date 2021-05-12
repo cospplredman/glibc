@@ -71,3 +71,9 @@ long double sqrtl sqrt(long double)
 float hypotf(float a,float b){return sqrtf(a*a+b*b);}
 double hypot(double a,double b){return sqrt(a*a+b*b);}
 long double hypotl(long double a,long double b){return sqrtl(a*a+b*b);}
+
+#define cbrt(r) (r f){r g=0,o=f;do(g+=o)*g*g>f&&(g-=o);while(g+(o/=2)!=g);return f<0?NAN:g;}
+float cbrtf cbrt(float)
+double cbrt cbrt(double)
+long double cbrtl cbrt(long double)
+#undef cbrt
