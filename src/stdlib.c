@@ -1,4 +1,19 @@
 #include "stdlib.h"
+#include "ctype.h"
+
+double atof(char*p) {
+	return strtod(p,NULL);
+}
+
+double strtod(char*p,char**e) {
+	while(isspace(*p))p++;
+	int s=abs(*p-44)-1?1:44-*p++;
+	double d=0,m=1;
+	for(;isdigit(*p);d=d*10+*p++-48);
+	if(*p==46)for(;isdigit(*++p);d+=(m/=10)*(*p-48));
+	if(e)*e=p;
+	return s*d;
+}
 
 int r = 1;
 
