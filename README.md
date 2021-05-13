@@ -1,5 +1,5 @@
 # glibc
-golfed libc targeting gcc
+golfed C90 libc targeting gcc
 
 ##### rules (subject to change):
 - no __builtins
@@ -16,7 +16,6 @@ Complete:
 - assert.h
 - ctype.h (without localization)
 - errno.h
-- stdbool.h
 - stddef.h
 - float.h
 
@@ -26,23 +25,9 @@ Partial:
 - string.h (pi working on it)
 
 To-do:
-- complex.h
-- fenv.h
-- inttypes.h
-- iso646.h
 - limits.h
 - locale.h
 - setjmp.h
 - signal.h
-- stdalign.h
-- stdarg.h
-- stdatomic.h
-- stdint.h
 - stdio.h
-- stdnoreturn.h
-- tgmath.h
-- threads.h
 - time.h
-- uchar.h
-- wchar.h
-- wctype.h
