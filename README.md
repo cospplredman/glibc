@@ -18,6 +18,7 @@ Complete:
 - errno.h
 - stdbool.h
 - stddef.h
+- float.h
 
 Partial:
 - stdlib.h (felis working on it)
@@ -27,7 +28,6 @@ Partial:
 To-do:
 - complex.h
 - fenv.h
-- float.h
 - inttypes.h
 - iso646.h
 - limits.h
