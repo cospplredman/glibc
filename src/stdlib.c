@@ -6,12 +6,20 @@ double atof(char*p) {
 }
 
 double strtod(char*p,char**e) {
+	// todo: rewrite this using strtol
 	while(isspace(*p))p++;
-	int s=abs(*p-44)-1?1:44-*p++;
-	double d=0,m=1;
+	int x,s=abs(*p-44)-1?1:44-*p++;
+	double d=0,m=1,z=0;
 	for(;isdigit(*p);d=d*10+*p++-48);
 	if(*p==46)for(;isdigit(*++p);d+=(m/=10)*(*p-48));
+	if(toupper(*p)==69) {
+		x=abs(*++p-44)-1?1:44-*p++;
+		for(;isdigit(*p);z=z*10+*p++-48);
+		d*=pow(10,x*z);
+	}
 	if(e)*e=p;
+	if(d==1e309)return(errno=34),s*1e309;
+	if(d==0)errno=34;
 	return s*d;
 }
 
