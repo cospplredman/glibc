@@ -28,17 +28,17 @@
 #define islessgreater(a,b)((a)<(b)||(a)>(b))
 #define isunordered(a,b)(isnan(a)||isnan(b))
 
-typdef double float_t;
-typdef double double_t;
+typedef double float_t;
+typedef double double_t;
 
-struct div_t{int quot;int rem;};
-struct ldiv_t{long quot;long rem;};
-struct lldiv_t{long long quot;long long rem;};
+struct div_t{int quot,rem};
+struct ldiv_t{long quot,rem};
+struct lldiv_t{long long quot,rem};
 // todo: struct imaxdiv_t { int quot; int rem; };
 
-div_t div(int a,int b){return{a/b,a%b};}
-ldiv_t div(long a,long b){return{a/b,a%b};}
-lldiv_t div(long long a,long long b){return{a/b,a%b};}
+struct div_t div(a,b){struct div_t c={a/b,a%b};return c;}
+struct ldiv_t ldiv(a,b)long a,b;{struct ldiv_t c={a/b,a%b};return c;}
+struct lldiv_t lldiv(a,b)long long a,b;{struct lldiv_t c={a/b,a%b};return c;}
 // todo: imaxdiv_t imaxdiv()
 
 //todo imaxabs
@@ -51,9 +51,9 @@ float fabsf(float a){return a<0?-a:a;}
 double fabs(double a){return a<0?-a:a;}
 long double fabsl(long double a){return a<0?-a:a;}
 
-float fdimf(float a,float b){return absf(a-b);}
-double fdim(double a,double b){return abs(a-b);}
-long double fdiml(long double a,long double b){return absl(a-b);}
+float fdimf(float a,float b){return fabsf(a-b);}
+double fdim(double a,double b){return fabs(a-b);}
+long double fdiml(long double a,long double b){return fabsl(a-b);}
 #define fdim(a,b)Q(a+b,(a+b),fdiml,fdim)
 
 float roundf(float k){float r=0x1p-149;return k==0.5?1:r*k/r;}
@@ -71,15 +71,15 @@ double ceil(double k){return -floor(-k);}
 long double ceill(long double k){return -floorl(-k);}
 #define ceil(a)Q(a,(a),ceill,ceil)
 
-#define lround(a) (long)(a+0.5)
 long lroundf(float a){return lround(a);}
 long lround(float a){return lround(a);}
 long lroundl(float a){return lround(a);}
+#define lround(a) (long)(a+0.5)
 
-#define llround(a) (long long)(a+0.5)
 long long llroundf(float a){return llround(a);}
 long long llround(double a){return llround(a);}
 long long llroundl(long double a){return llround(a);}
+#define llround(a) (long long)(a+0.5)
 
 float fmodf(float a,float b){return a-b*floorf(a/b);}
 double fmod(double a,double b){return a-b*floor(a/b);}
@@ -91,9 +91,9 @@ double remainder(double a,double b){return a-round(a/b)*b;}
 long double remainderl(long double a,long double b){return a-roundl(a/b)*b;}
 #define remainder(a,b)Q(a+b,(a,b),remainderl,remainder)
 
-float remquof(float a,float b,int *c){union{int a,float b}k={.b=a/b};return *c=k.a&7,remainder(a,b)}
-double remquo(double a,double b,int *c){union{int a[2],float b}k={.b=a/b};return *c=k.a[0]&7,remainder(a,b)}
-long double remquol(long double a,long double b,int *c){union{int a[4],float b}k={.b=a/b};return *c=k.a[0]&7,remainder(a,b)}
+float remquof(float a,float b,int *c){union{int a;float b}k={.b=a/b};return *c=k.a&7,remainder(a,b);}
+double remquo(double a,double b,int *c){union{int a[2];float b}k={.b=a/b};return *c=k.a[0]&7,remainder(a,b);}
+long double remquol(long double a,long double b,int *c){union{int a[4];float b}k={.b=a/b};return *c=k.a[0]&7,remainder(a,b);}
 #define remquo(a,b,c)Q(a+b,(a,b,c),remquol,remquo)
 
 float nanf(char*){return 0;}
@@ -105,7 +105,7 @@ float sqrtf sqrt(float)
 double sqrt sqrt(double)
 long double sqrtl sqrt(long double)
 #undef sqrt
-#define sqrt(a)Q(a,sqrtl,sqrt)
+#define sqrt(a)Q(a,(a),sqrtl,sqrt)
 
 float hypotf(float a,float b){return sqrtf(a*a+b*b);}
 double hypot(double a,double b){return sqrt(a*a+b*b);}
@@ -119,9 +119,9 @@ long double cbrtl cbrt(long double)
 #undef cbrt
 #define cbrt(a)Q(a,(a),cbrtl,cbrt)
 
-float frexpf(float a,int* e){union{float f;int i;}k={.f=a};*e=((k.i>>23)&255)-127;return k.i&=0x807fffff,k.i|=0x3f800000, k.f;}
-double frexp(double a,int* e){union{double f;int i[2];}k={.f=a};*e=((k.i[1]>>20)&2047)-1023;return k.i[1]&=0x800fffff,k.i[1]|=(1023<<20),k.f;}
-long double frexpl(long double a,int* e){union{long double f;int i[4];}k={.f=a};*e=(k.i[2]&0x7fff)-16383;return k.i[3]=0,k.i[2]&=0x8000,k.i[2]|=16383,k.f;}
+float frexpf(float a,int* e){union{float f;int i}k={.f=a};*e=((k.i>>23)&255)-127;return k.i&=0x807fffff,k.i|=0x3f800000, k.f;}
+double frexp(double a,int* e){union{double f;int i[2]}k={.f=a};*e=((k.i[1]>>20)&2047)-1023;return k.i[1]&=0x800fffff,k.i[1]|=(1023<<20),k.f;}
+long double frexpl(long double a,int* e){union{long double f;int i[4]}k={.f=a};*e=(k.i[2]&0x7fff)-16383;return k.i[3]=0,k.i[2]&=0x8000,k.i[2]|=16383,k.f;}
 #define frexp(a,b)Q(a,(a,b),frexpl,frexp)
 
 float log2f(float j){int a;float k=0,f=1;for(int i=24;i;i--)j=frexpf(j,&a),k+=a*f,f*=0.5,j*=j;return k;}
@@ -134,9 +134,9 @@ double fma(double a,double b,double c){return a*b+c;}
 long double fmal(long double a,long double b,long double c){return a*b+c;}
 #define fma(a,b,c)Q(a+b+c,(a,b,c),fmal,fma)
 
-float ldexpf(float a,int e){union{float f;int i;}k={.f=a};e+=((k.i>>23)&255)-127;return k.i&=0x807fffff,k.i|=(e+127)<<23,e>127?HUGE_VALF:k.f;}
-double ldexp(double a,int e){union{double f;int i[2];}k={.f=a};e+=((k.i[1]>>20)&2047)-1023;return k.i[1]&=0x800fffff,k.i[1]|=((e+1023)<<20),e>1025?HUGE_VAL:k.f;}
-long double ldexpl(long double a,int e){union{long double f;int i[4];}k={.f=a};e+=(k.i[2]&0x7fff)-16383;return k.i[3]=0,k.i[2]&=0x8000,k.i[2]|=e+16383,e>16385?HUGE_VALL:k.f;}
+float ldexpf(float a,int e){union{float f;int i}k={.f=a};e+=((k.i>>23)&255)-127;return k.i&=0x807fffff,k.i|=(e+127)<<23,e>127?HUGE_VALF:k.f;}
+double ldexp(double a,int e){union{double f;int i[2]}k={.f=a};e+=((k.i[1]>>20)&2047)-1023;return k.i[1]&=0x800fffff,k.i[1]|=((e+1023)<<20),e>1025?HUGE_VAL:k.f;}
+long double ldexpl(long double a,int e){union{long double f;int i[4]}k={.f=a};e+=(k.i[2]&0x7fff)-16383;return k.i[3]=0,k.i[2]&=0x8000,k.i[2]|=e+16383,e>16385?HUGE_VALL:k.f;}
 #define ldexp(a,b)Q(a,(a,b),ldexpl,ldexp)
 
 float fmaxf(float a,float b){return a>b?a:b;}
@@ -147,7 +147,7 @@ long double fmaxl(long double a,long double b){return a>b?a:b;}
 float fminf(float a,float b){return a<b?a:b;}
 double fmin(double a,double b){return a<b?a:b;}
 long double fminl(long double a,long double b){return a<b?a:b;}
-#define fmax(a,b)Q(a,(a,b),fminl,fmin)
+#define fmin(a,b)Q(a,(a,b),fminl,fmin)
 
 float truncf(float k){return roundf(k-k<1?0.5:-0.5);}
 double trunc(double k){return round(k-k<1?0.5:-0.5);}
