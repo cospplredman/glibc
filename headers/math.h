@@ -125,8 +125,8 @@ long double frexpl(long double a,int* e){union{long double f;int i[4]}k={.f=a};*
 #define frexp(a,b)Q(a,(a,b),frexpl,frexp)
 
 float log2f(float j){int a;float k=0,f=1;for(int i=24;i;i--)j=frexpf(j,&a),k+=a*f,f*=0.5,j*=j;return k;}
-double log2(float j){int a;double k=0,f=1;for(int i=53;i;i--)j=frexp(j,&a),k+=a*f,f*=0.5,j*=j;return k;}
-long double log2l(float j){int a;long double k=0,f=1;for(int i=65;i;i--)j=frexpl(j,&a),k+=a*f,f*=0.5,j*=j;return k;}
+double log2(double j){int a;double k=0,f=1;for(int i=53;i;i--)j=frexp(j,&a),k+=a*f,f*=0.5,j*=j;return k;}
+long double log2l(long double j){int a;long double k=0,f=1;for(int i=65;i;i--)j=frexpl(j,&a),k+=a*f,f*=0.5,j*=j;return k;}
 #define log2(a)Q(a,(a),log2l,log2)
 
 float fmaf(float a,float b,float c){return a*b+c;}
