@@ -76,9 +76,9 @@ long lround(double a){return (long)(a+0.5);}
 long lroundl(long double a){return (long)(a+0.5);}
 #define lround(a) (long)(a+0.5)
 
-long long llroundf(float a){return llround(a);}
-long long llround(double a){return llround(a);}
-long long llroundl(long double a){return llround(a);}
+long long llroundf(float a){return (long long)(a+0.5);}
+long long llround(double a){return (long long)(a+0.5);}
+long long llroundl(long double a){return (long long)(a+0.5);}
 #define llround(a) (long long)(a+0.5)
 
 float fmodf(float a,float b){return a-b*floorf(a/b);}
