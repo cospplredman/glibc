@@ -71,9 +71,9 @@ double ceil(double k){return -floor(-k);}
 long double ceill(long double k){return -floorl(-k);}
 #define ceil(a)Q(a,(a),ceill,ceil)
 
-long lroundf(float a){return lround(a);}
-long lround(float a){return lround(a);}
-long lroundl(float a){return lround(a);}
+long lroundf(float a){return (long)(a+0.5);}
+long lround(double a){return (long)(a+0.5);}
+long lroundl(long double a){return (long)(a+0.5);}
 #define lround(a) (long)(a+0.5)
 
 long long llroundf(float a){return llround(a);}
@@ -96,9 +96,9 @@ double remquo(double a,double b,int *c){union{int a[2];float b}k={.b=a/b};return
 long double remquol(long double a,long double b,int *c){union{int a[4];float b}k={.b=a/b};return *c=k.a[0]&7,remainder(a,b);}
 #define remquo(a,b,c)Q(a+b,(a,b,c),remquol,remquo)
 
-float nanf(char*){return 0;}
-double nan(char*){return 0;}
-long double nanl(char*){return 0;}
+float nanf(char*a){return 0;}
+double nan(char*a){return 0;}
+long double nanl(char*a){return 0;}
 
 #define sqrt(r) (r f){r g=0,o=f;do(g+=o)*g>f&&(g-=o);while(g+(o/=2)!=g);return f<0?NAN:g;}
 float sqrtf sqrt(float)
