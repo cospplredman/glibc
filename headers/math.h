@@ -21,15 +21,15 @@ long D sqrtc(long D f){long D g=0,o=f;do(g+=o)*g>f&&(g-=o);while(g+(o/=2)!=g);R(
 long D P(long D k){long D o=ldexp(1,k),p=2,g=fabs(k);union{long D f;long i[2];}r={.f=g-(int)g+1};while(*r.i)p=sqrtc(p),(*r.i<<=1)&(1ull<<63)&&(o*=p);R k>0?o:1/o;}
 D log(D a){R L(a)*0xb.17217f7d1cf7c55p-4l;}
 D log10(D a){R L(a)*0x9.a209a84fbcff799p-5l;}
-D expc(D a){R P(a*0xb.8aa3b295c17f0bbp-3l);}
+D exp(D a){R P(a*0xb.8aa3b295c17f0bbp-3l);}
 D pow(D a,D b){R P(L(a)*b);}
 D cos(D a){a=fmod(a,Y)+Y;long D v=1,c=-a*a/2,e=3;while(v!=v+c)v+=c,c*=-a*a,c/=e++*e++;R v;}
 D sin(D a){R cos(a-Y/4);}
 D asin(D a){long D v=a,c=a*a*a/6,e=3;while(v!=v+c)v+=c,c*=(e*e/++e)/++e,c*=a*a;R v;}
-D acosc(D a){R Y/4-asin(a);}
+D acos(D a){R Y/4-asin(a);}
 D tan(D a){R sin(a)/cos(a);}
 D atan(D a){long D v=a,c=-a*a*a/3,e=3;while(v!=v+c)v+=c,c*=-a*a*e,c/=e+=2;R v;}
 D atan2(D a,D b){R atan(a/b)+((a>0)-0.5)*(b<0)*Y;}
-D sinh(D a){R (exp(a)-exp(-a))/2;}
-D cosh(D a){R (exp(a)+exp(-a))/2;}
+D sinh(D a){R(exp(a)-exp(-a))/2;}
+D cosh(D a){R(exp(a)+exp(-a))/2;}
 D tanhc(D a){R sinh(a)/cosh(a);}
