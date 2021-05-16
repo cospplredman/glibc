@@ -32,4 +32,4 @@ D atan(D a){long D v=a,c=-a*a*a/3,e=3;while(v!=v+c)v+=c,c*=-a*a*e,c/=e+=2;R v;}
 D atan2(D a,D b){R atan(a/b)+((a>0)-0.5)*(b<0)*Y;}
 D sinh(D a){R(exp(a)-exp(-a))/2;}
 D cosh(D a){R(exp(a)+exp(-a))/2;}
-D tanhc(D a){R sinh(a)/cosh(a);}
+D tanh(D a){R sinh(a)/cosh(a);}
