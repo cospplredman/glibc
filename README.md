@@ -18,10 +18,10 @@ Complete:
 - errno.h
 - stddef.h
 - float.h
+- math.h
 
 Partial:
 - stdlib.h (felis working on it)
-- math.h (cos working on it)
 - string.h (pi working on it)
 
 To-do:
